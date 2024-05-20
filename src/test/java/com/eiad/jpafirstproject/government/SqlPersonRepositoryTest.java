@@ -73,16 +73,6 @@ public class SqlPersonRepositoryTest {
         Assertions.assertEquals(LocalDate.now(), createdPerson.getIdCreationDate());
     }
 
-//    @Test
-//    public void if_you_change_status_in_the_system_must_status_equal_to_inActive() {
-//        Person createdPerson = sqlPersonRepository.create(person1);
-//        createdPerson.setStatus(Status.INACTIVE);
-//
-//        Person afterChange = sqlPersonRepository.update(createdPerson.getIdNumber());
-//
-//        Assertions.assertEquals(Status.INACTIVE, afterChange.getStatus());
-//    }
-
     @Test
     public void when_first_person_created_then_his_idNumber_must_end_with_one() {
         Person createdPerson1 = sqlPersonRepository.create(person1);

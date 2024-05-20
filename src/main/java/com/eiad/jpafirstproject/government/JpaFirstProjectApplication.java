@@ -8,7 +8,5 @@ public class JpaFirstProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaFirstProjectApplication.class, args);
-
 	}
-
 }

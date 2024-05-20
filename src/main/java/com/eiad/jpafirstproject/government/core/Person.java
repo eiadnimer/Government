@@ -18,7 +18,8 @@ public class Person {
     private Status status;
     private LocalDate idCreationDate;
 
-    public Person(FullName fullName, String motherName, LocalDate birthDay, List<String> addresses, String bloodType) {
+    public Person(FullName fullName, String motherName, LocalDate birthDay,
+                  List<String> addresses, String bloodType) {
         if (fullName == null) {
             throw new IllegalArgumentException();
         }
@@ -62,7 +63,9 @@ public class Person {
     }
 
     public Person forCreation(Long generateId) {
-        return new Person(this.fullName, this.motherName, this.birthDay, this.addresses, this.bloodType, generateId, Status.ACTIVE, LocalDate.now());
+        return new Person(this.fullName, this.motherName, this.birthDay,
+                this.addresses, this.bloodType, generateId,
+                Status.ACTIVE, LocalDate.now());
     }
 
     @Override
