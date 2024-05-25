@@ -17,8 +17,10 @@ import java.util.List;
 @SpringBootTest
 @ActiveProfiles({"test", "jpa"})
 public class JpaPersonRepositoryTest {
-    private final FullName fullName1 = new FullName("eiad", "nimer", "omar", "alswaidat");
-    private final FullName fullName2 = new FullName("rafa", "jamal", "omar", "albarouky");
+    private final FullName fullName1 = new FullName("eiad", "nimer",
+            "omar", "alswaidat");
+    private final FullName fullName2 = new FullName("rafa", "jamal",
+            "omar", "albarouky");
     private Person person1;
     private Person person2;
     @Autowired

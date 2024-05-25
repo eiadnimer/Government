@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class PersonMapper {
 
-    protected PersonDTO convertToDTO(Person person) {
+    public PersonDTO convertToDTO(Person person) {
         return new PersonDTO(person.getFullName().getName(),
                 person.getFullName().getFatherName(),
                 person.getFullName().getGrandFatherName(),

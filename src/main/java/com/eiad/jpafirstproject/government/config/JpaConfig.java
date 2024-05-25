@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @Profile("jpa")
 public class JpaConfig {
-
     @Bean
     public PersonRepository personRepository(PersonMapper personMapper, EntityManager entityManager) {
         return new JpaPersonRepository(personMapper, entityManager);

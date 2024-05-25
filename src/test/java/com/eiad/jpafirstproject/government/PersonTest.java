@@ -3,6 +3,7 @@ package com.eiad.jpafirstproject.government;
 import com.eiad.jpafirstproject.government.core.FullName;
 import com.eiad.jpafirstproject.government.core.Person;
 import com.eiad.jpafirstproject.government.core.Status;
+import com.eiad.jpafirstproject.government.exceptions.FieldMustBeNotEmpty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +13,15 @@ import java.util.List;
 
 public class PersonTest {
 
-    private final FullName fullName = new FullName("muhannad", "mohammad", "ali", "anas");
+    private final FullName fullName = new FullName("muhannad", "mohammad", "ali",
+            "anas");
     private final List<String> addresses = new ArrayList<>();
 
     @Test
     public void if_full_name_equal_to_null_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(null, "nawal", LocalDate.parse("1995-08-16"), addresses, "o+"));
     }
 
@@ -27,7 +29,7 @@ public class PersonTest {
     public void if_mother_name_equal_to_null_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, null, LocalDate.parse("1995-08-16"), addresses, "o+"));
     }
 
@@ -35,7 +37,7 @@ public class PersonTest {
     public void if_birthday_equal_to_null_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, "nawal", null, addresses, "o+"));
     }
 
@@ -43,13 +45,13 @@ public class PersonTest {
     public void if_birthday_date_is_after_the_current_date_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, "nawal", LocalDate.parse("2222-08-16"), addresses, "o+"));
     }
 
     @Test
     public void if_the_addresses_equal_to_null_must_return_false() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, "nawal", LocalDate.parse("1995-08-16"), addresses, "o+"));
     }
 
@@ -57,7 +59,7 @@ public class PersonTest {
     public void if_the_blood_type_equal_to_null_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, "nawal", LocalDate.parse("1995-08-16"), addresses, null));
     }
 
@@ -65,7 +67,7 @@ public class PersonTest {
     public void if_the_status_equal_to_null_must_return_false() {
         addresses.add("amman");
         addresses.add("irbid");
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(FieldMustBeNotEmpty.class,
                 () -> new Person(fullName, "nawal", LocalDate.parse("1995-08-16"), addresses, "A+", 1L, null, LocalDate.now()));
     }
 

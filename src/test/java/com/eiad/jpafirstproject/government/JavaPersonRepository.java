@@ -3,11 +3,13 @@ package com.eiad.jpafirstproject.government;
 
 import com.eiad.jpafirstproject.government.core.Person;
 import com.eiad.jpafirstproject.government.core.PersonRepository;
+import lombok.Getter;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class JavaPersonRepository implements PersonRepository {
     private Person createdPerson;
     public final List<Person> persons = new ArrayList<>();
@@ -43,13 +45,10 @@ public class JavaPersonRepository implements PersonRepository {
     public Person update(long idNumber) {
         return createdPerson;
     }
+
     @Override
     public long generateCounter() {
         return persons.size();
-    }
-
-    public Person getCreatedPerson() {
-        return createdPerson;
     }
 
     public void isNotFound(Person person) {

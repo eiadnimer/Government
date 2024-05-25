@@ -1,5 +1,6 @@
 package com.eiad.jpafirstproject.government.core;
 
+import com.eiad.jpafirstproject.government.exceptions.FieldMustBeNotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,23 +22,23 @@ public class Person {
     public Person(FullName fullName, String motherName, LocalDate birthDay,
                   List<String> addresses, String bloodType) {
         if (fullName == null) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.fullName = fullName;
         if (motherName == null) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.motherName = motherName;
         if (birthDay == null || birthDay.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.birthDay = birthDay;
         if (addresses.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.addresses = addresses;
         if (bloodType == null) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.bloodType = bloodType;
     }
@@ -53,7 +54,7 @@ public class Person {
         this(fullName, motherName, birthDay, addresses, bloodType);
         this.idNumber = idNumber;
         if (status == null) {
-            throw new IllegalArgumentException();
+            throw new FieldMustBeNotEmpty();
         }
         this.status = status;
         if (creationDate.isAfter(LocalDate.now())) {

@@ -1,11 +1,9 @@
 package com.eiad.jpafirstproject.government;
-import com.eiad.jpafirstproject.government.api.IdNumberDTO;
-import com.eiad.jpafirstproject.government.api.PersonDTO;
-import com.eiad.jpafirstproject.government.api.PersonMapper;
-import com.eiad.jpafirstproject.government.api.Response;
+
+import com.eiad.jpafirstproject.government.api.*;
 import com.eiad.jpafirstproject.government.core.Person;
-import com.eiad.jpafirstproject.government.sql.SqlPersonRepository;
 import com.eiad.jpafirstproject.government.core.Status;
+import com.eiad.jpafirstproject.government.sql.SqlPersonRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,8 +34,12 @@ public class ControllerTest {
 
     @BeforeEach
     void setUp() {
-        personDTO1 = new PersonDTO("eiad", "nimer", "omar", "alswaidat", "noha", LocalDate.parse("1992-06-24"), "amman,irbid", "A+");
-        personDTO2 = new PersonDTO("rafat", "jamal", "rami", "albarouky", "mona", LocalDate.parse("1992-11-30"), "amman,irbid", "A+");
+        personDTO1 = new PersonDTO("eiad", "nimer",
+                "omar", "alswaidat", "noha",
+                LocalDate.parse("1992-06-24"), "amman,irbid", "A+");
+        personDTO2 = new PersonDTO("rafat", "jamal",
+                "rami", "albarouky", "mona",
+                LocalDate.parse("1992-11-30"), "amman,irbid", "A+");
         sqlPersonRepository.deleteAll();
     }
 
@@ -60,7 +62,8 @@ public class ControllerTest {
 
     @Test
     public void when_create_new_person_must_return_new_person_with_exact_information() {
-        ResponseEntity<PersonDTO> response = testRestTemplate.postForEntity("http://localhost:" + port + "/cardId", personDTO1, PersonDTO.class);
+        ResponseEntity<PersonDTO> response = testRestTemplate.postForEntity("http://localhost:" + port + "/cardId",
+                personDTO1, PersonDTO.class);
 
         PersonDTO person = response.getBody();
 
