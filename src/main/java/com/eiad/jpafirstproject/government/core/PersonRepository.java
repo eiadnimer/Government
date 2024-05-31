@@ -9,6 +9,7 @@ public interface PersonRepository {
     Person create(Person person);
 
     void delete(long inNumber);
+
     void deleteAll();
 
     List<Person> findAll();

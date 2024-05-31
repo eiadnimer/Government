@@ -14,8 +14,10 @@ public class SqlPersonRepositoryTest {
             "postgres:15-alpine"
     );
 
-    private final FullName fullName1 = new FullName("eiad", "nimer", "omar", "alswaidat");
-    private final FullName fullName2 = new FullName("rafa", "jamal", "omar", "albarouky");
+    private final FullName fullName1 = new FullName("eiad", "nimer",
+            "omar", "alswaidat");
+    private final FullName fullName2 = new FullName("rafa", "jamal",
+            "omar", "albarouky");
     private Person person1;
     private Person person2;
     private SqlPersonRepository sqlPersonRepository;
@@ -32,10 +34,10 @@ public class SqlPersonRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        person1 = new Person(fullName1, "noha", LocalDate.parse("1992-06-24"), List.of("amman", "irbid"),
-                "A+", 1L, Status.ACTIVE, LocalDate.now());
-        person2 = new Person(fullName2, "mona", LocalDate.parse("1992-11-30"), List.of("amman", "irbid"),
-                "A+", 2L, Status.ACTIVE, LocalDate.now());
+        person1 = new Person(fullName1, "noha", LocalDate.parse("1992-06-24"),
+                List.of("amman", "irbid"), "A+", 1L, Status.ACTIVE, LocalDate.now());
+        person2 = new Person(fullName2, "mona", LocalDate.parse("1992-11-30"),
+                List.of("amman", "irbid"), "A+", 2L, Status.ACTIVE, LocalDate.now());
         DatabaseInitializer databaseInitializer = new DatabaseInitializer(
                 postgres.getJdbcUrl(),
                 postgres.getUsername(),

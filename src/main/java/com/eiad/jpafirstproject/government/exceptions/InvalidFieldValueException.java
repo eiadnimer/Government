@@ -1,4 +1,4 @@
-package com.eiad.jpafirstproject.government.core;
+package com.eiad.jpafirstproject.government.exceptions;
 
 import lombok.Getter;
 

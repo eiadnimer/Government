@@ -1,15 +1,19 @@
 package com.eiad.jpafirstproject.government.core;
 
-import com.eiad.jpafirstproject.government.exceptions.FieldMustBeNotEmpty;
+import com.eiad.jpafirstproject.government.core.validations.personValidation.fullname.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 @Setter
 @Getter
 public class Person {
+    private final static List<PersonValidationsBeforeCreation> PERSON_VALIDATION_BEFORE_CREATIONS = new ArrayList<>();
+    private final static List<PersonValidationsAfterCreation> PERSON_VALIDATION_AFTER_CREATIONS = new ArrayList<>();
     private final FullName fullName;
     private final String motherName;
     private final LocalDate birthDay;
@@ -19,28 +23,28 @@ public class Person {
     private Status status;
     private LocalDate idCreationDate;
 
-    public Person(FullName fullName, String motherName, LocalDate birthDay,
-                  List<String> addresses, String bloodType) {
-        if (fullName == null) {
-            throw new FieldMustBeNotEmpty();
-        }
+    static {
+        PERSON_VALIDATION_BEFORE_CREATIONS.add(new MotherNameValidation());
+        PERSON_VALIDATION_BEFORE_CREATIONS.add(new BirthdayValidation());
+        PERSON_VALIDATION_BEFORE_CREATIONS.add(new AddressesValidation());
+        PERSON_VALIDATION_BEFORE_CREATIONS.add(new BloodTypeValidation());
+        PERSON_VALIDATION_BEFORE_CREATIONS.add(new FullNameValidation());
+        PERSON_VALIDATION_AFTER_CREATIONS.add(new IDValidation());
+        PERSON_VALIDATION_AFTER_CREATIONS.add(new StatusValidation());
+        PERSON_VALIDATION_AFTER_CREATIONS.add(new IDCreationTimer());
+    }
+
+    public Person(FullName fullName,
+                  String motherName,
+                  LocalDate birthDay,
+                  List<String> addresses,
+                  String bloodType) {
         this.fullName = fullName;
-        if (motherName == null) {
-            throw new FieldMustBeNotEmpty();
-        }
         this.motherName = motherName;
-        if (birthDay == null || birthDay.isAfter(LocalDate.now())) {
-            throw new FieldMustBeNotEmpty();
-        }
         this.birthDay = birthDay;
-        if (addresses.isEmpty()) {
-            throw new FieldMustBeNotEmpty();
-        }
         this.addresses = addresses;
-        if (bloodType == null) {
-            throw new FieldMustBeNotEmpty();
-        }
         this.bloodType = bloodType;
+        validatePersonBeforeCreation();
     }
 
     public Person(FullName fullName,
@@ -51,16 +55,30 @@ public class Person {
                   Long idNumber,
                   Status status,
                   LocalDate creationDate) {
-        this(fullName, motherName, birthDay, addresses, bloodType);
+        this(fullName,
+                motherName,
+                birthDay,
+                addresses,
+                bloodType);
         this.idNumber = idNumber;
-        if (status == null) {
-            throw new FieldMustBeNotEmpty();
-        }
         this.status = status;
-        if (creationDate.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException();
-        }
         this.idCreationDate = creationDate;
+        validatePersonAfterCreation();
+    }
+
+    private void validatePersonAfterCreation() {
+        for (PersonValidationsBeforeCreation personValidation : PERSON_VALIDATION_BEFORE_CREATIONS) {
+            personValidation.isValid(this);
+        }
+        for (PersonValidationsAfterCreation personValidationAfterCreation : PERSON_VALIDATION_AFTER_CREATIONS) {
+            personValidationAfterCreation.isValid(this);
+        }
+    }
+
+    private void validatePersonBeforeCreation() {
+        for (PersonValidationsBeforeCreation personValidation : PERSON_VALIDATION_BEFORE_CREATIONS) {
+            personValidation.isValid(this);
+        }
     }
 
     public Person forCreation(Long generateId) {

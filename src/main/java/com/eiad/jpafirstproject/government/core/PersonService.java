@@ -35,10 +35,11 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void changeStatus(long idNumber) {
+    public Person changeStatus(long idNumber) {
         Person byId = personRepository.findById(idNumber);
         byId.setStatus(Status.INACTIVE);
         personRepository.update(byId.getIdNumber());
+        return byId;
     }
 
     public void deleteAccount(long idNumber) {

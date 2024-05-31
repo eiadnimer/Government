@@ -1,33 +1,39 @@
 package com.eiad.jpafirstproject.government.core;
 
+import com.eiad.jpafirstproject.government.core.validations.fullname.validation.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 public class FullName {
+    private final static List<FullNameValidations> fullNameValidations = new ArrayList<>();
     private final String name;
     private final String fatherName;
     private final String grandFatherName;
     private final String familyName;
 
+    static {
+        fullNameValidations.add(new FirstNameValidation());
+        fullNameValidations.add(new FatherNameValidations());
+        fullNameValidations.add(new GrandFatherValidation());
+        fullNameValidations.add(new FamilyNameValidation());
+    }
+
     public FullName(String name, String fatherName, String grandFatherName, String familyName) {
-        if (name == null) {
-            throw new InvalidFieldValueException("firstName");
-        }
         this.name = name;
-        if (fatherName == null) {
-            throw new IllegalArgumentException();
-        }
         this.fatherName = fatherName;
-        if (grandFatherName == null) {
-            throw new IllegalArgumentException();
-        }
         this.grandFatherName = grandFatherName;
-        if (familyName == null) {
-            throw new IllegalArgumentException();
-        }
         this.familyName = familyName;
+        validateFullName();
+    }
+
+    private void validateFullName() {
+        for (FullNameValidations fullNameValidation : fullNameValidations) {
+            fullNameValidation.IsValid(this);
+        }
     }
 
 

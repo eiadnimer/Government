@@ -19,7 +19,6 @@ public class Controller {
         this.personMapper = personMapper;
     }
 
-
     @GetMapping("persons")
     public List<PersonDTO> getPersons() {
         return personService.findAll().stream()
@@ -56,9 +55,8 @@ public class Controller {
 
     @PostMapping("status")
     public PersonDTO changeStatus(@RequestBody IdNumberDTO idNumber) {
-        personService.changeStatus(idNumber.getIdNumber());
-        Person person = personService.find(idNumber.getIdNumber());
-        return personMapper.convertToDTO(person);
+        Person updatedPerson = personService.changeStatus(idNumber.getIdNumber());
+        return personMapper.convertToDTO(updatedPerson);
     }
 
     @PostMapping("delete")
